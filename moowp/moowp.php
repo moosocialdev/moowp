@@ -1,11 +1,11 @@
 <?php
 /**
 * Plugin Name: mooWP
-* Plugin URI: https://moosocial.com
+* Plugin URI: https://github.com/moosocialdev/moowp
 * Description: mooWP is a wordpress plugin, it acts as a bridge between mooSocial platform and Wordpress to turn your WordPress Site Into a Social Network. It allows you to turn your one-time visitors into loyal, long-term users by providing them a place to sign up, connect with each other, post messages, and more
 * Version: 1.0.0
 * Author: mooSocial
-* Author URI: https://moosocial.com
+* Author URI: https://moosocial.com/social-networking-plugin-for-wordpress
 * License: GPL v2 or later
 * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 **/

@@ -8,10 +8,18 @@
             <?php endif; ?>
         </ul>
     </div>
+    <?php if($this->moosocial_is_connecting == 1 && empty($this->moosocial_pages_menu)): ?>
+    <p class="button-controls">
+      <span class="add-to-menu">
+          <a class="button-secondary right" href="?moosocialmenu=load"><?php esc_attr_e('Load Menu', 'moosocial'); ?></a>
+      </span>
+    </p>
+    <?php else: ?>
     <p class="button-controls">
       <span class="add-to-menu">
         <input type="submit"<?php disabled($nav_menu_selected_id, 0); ?> class="button-secondary submit-add-to-menu right" value="<?php esc_attr_e('Add to Menu', 'moosocial'); ?>" name="add-moosocial-links-menu-item" id="submit-moosocial-links" />
         <span class="spinner"></span>
       </span>
     </p>
+    <?php endif; ?>
 </div>

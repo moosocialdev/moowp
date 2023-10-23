@@ -132,6 +132,7 @@ class MooWP_Request extends MooWP_App {
             array(
                 'methods'             => WP_REST_Server::READABLE,
                 'callback'            => array($this, 'test_test' ),
+                'permission_callback' => array($this, 'get_permissions_check' ),
             )
         ) );
 

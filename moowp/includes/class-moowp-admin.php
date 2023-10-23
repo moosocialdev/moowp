@@ -13,6 +13,11 @@ class MooWP_Admin extends MooWP_App{
      * Initializes WordPress hooks
      */
     public function init_hooks() {
+        if(isset($_GET['moosocialmenu']) && $_GET['moosocialmenu'] == 'load' ){
+            $this->init_nav_items();
+            wp_redirect( admin_url( 'nav-menus.php' ) );
+        }
+
         $this->initiated = true;
 
         /* nav menu left */
