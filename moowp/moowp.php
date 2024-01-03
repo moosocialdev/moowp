@@ -10,13 +10,17 @@
 * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 **/
 
-define( 'MOOWP_PLUGIN_NAME', 'mooWP' );
-define( 'MOOWP_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
-define( 'MOOWP_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
-define( 'MOOWP_VERSION', '1.0.0' );
+define('MOOWP_PLUGIN_NAME', 'mooWP');
+define('MOOWP_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
+define('MOOWP_PLUGIN_URL', plugin_dir_url( __FILE__ ));
+define('MOOWP_VERSION', '1.0.0');
 
-define( 'MOOWP_ERROR_NOT_LOGIN', 'not-login' );
-define( 'MOOWP_CURLOPT_TIMEOUT', 3 );
+define('MOOWP_ERROR_NOT_LOGIN', 'not-login');
+define('MOOWP_CURLOPT_TIMEOUT', 3);
+define('MOOWP_API_NAMESPACE', 'moowp-api');
+define('MOOWP_APP_NAMESPACE', 'moowp-app');
+define('MOOWP_CORE_NAMESPACE', 'wordpress_integrations');
+define('MOOWP_CORE_API_NAMESPACE', 'wordpress_integrations/api');
 
 require_once( MOOWP_PLUGIN_DIR . 'includes/class-moowp-app.php' );
 require_once( MOOWP_PLUGIN_DIR . 'includes/class-moowp-admin.php' );

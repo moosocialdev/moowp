@@ -17,14 +17,6 @@ class MooWP_View extends MooWP_App {
         if($current_user_id > 0){
             add_action( 'wp_enqueue_scripts', array($this, 'load_resources'));
 
-            /*$current_theme_name = esc_html(wp_get_theme());
-
-            if($current_theme_name == 'mooTheme'){
-                add_action( 'mootheme_header_notification', array( $this, 'html_notification' ), 10, 1 );
-            }else{
-                add_action('wp_body_open', array($this, 'html_notification'));
-            }*/
-
             $show_in_header = apply_filters('theme_notification_show_in_header', false);
 
             if($show_in_header){
@@ -32,7 +24,6 @@ class MooWP_View extends MooWP_App {
             }else{
                 add_action('wp_body_open', array($this, 'html_notification'));
             }
-
         }
     }
 
@@ -54,6 +45,7 @@ class MooWP_View extends MooWP_App {
 
         //add option config to js
         $inline_js = array(
+            'MOOWP_APP_NAMESPACE' => MOOWP_APP_NAMESPACE,
             'moosocial_address_url'=> $this->moosocial_address_url,
             'moosocial_notification_position'=> $this->moosocial_notification_position,
             'wp_address_url'=> $wp_address_url,

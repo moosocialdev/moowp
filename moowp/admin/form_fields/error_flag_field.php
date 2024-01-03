@@ -1,9 +1,9 @@
 <?php $val = get_option(self::$option_name.'_error_flag'); ?>
 <?php
     if($val == 1){
-        _e( 'Yes', 'moosocial' );
+        esc_attr_e( 'Yes', 'moowp' );
     }else{
-        _e( 'No', 'moosocial' );
+        esc_attr_e( 'No', 'moowp' );
     }
 ?>
 

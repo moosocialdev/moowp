@@ -1,6 +1,6 @@
 <?php
-    $val = get_option(self::$option_name.'_cookie_expire');
-    if(empty($val)){
+    $val = absint(get_option(self::$option_name.'_cookie_expire'));
+    if($val <= 0){
         $val = 60*12*7;
     }
 ?>

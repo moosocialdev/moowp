@@ -14,32 +14,29 @@ class MooWP_User extends MooWP_App {
     public function init_hooks() {
         $this->initiated = true;
 
-        add_filter ( 'auth_cookie_expiration', array($this, 'wpdev_login_session') );
+        add_filter('auth_cookie_expiration', array($this, 'wpdev_login_session') );
 
-        add_action( 'show_user_profile',  array($this, 'render_profile_fields'));
-        add_action( 'edit_user_profile', array($this, 'render_profile_fields'));
-        add_action( 'personal_options_update', array($this, 'save_profile_fields') );
-        add_action( 'edit_user_profile_update', array($this, 'save_profile_fields') );
-        add_action( 'delete_user', array($this, 'before_delete_user') );
-
-        add_action( 'profile_update', array($this, 'check_user_email_updated'), 10, 3 );
+        add_action('show_user_profile',  array($this, 'render_profile_fields'));
+        add_action('edit_user_profile', array($this, 'render_profile_fields'));
+        add_action('personal_options_update', array($this, 'save_profile_fields') );
+        add_action('edit_user_profile_update', array($this, 'save_profile_fields') );
+        add_action('delete_user', array($this, 'before_delete_user') );
+        add_action('profile_update', array($this, 'check_user_email_updated'), 10, 3 );
+        add_action('wp_login', array($this, 'after_login_user'), 10, 2);
 
         add_filter('user_register', array($this, 'after_register_new_user' ));
-        add_filter('wp_login', array($this, 'after_login_user'));
+
         add_filter('wp_logout', array($this, 'after_logout_user'));
         add_filter('auth_cookie', array($this, 'auth_cookie_login'), 10, 5);
         add_filter('user_row_actions', array($this, 'user_row_actions'), 1, 2);
         add_action('delete_user', array($this, 'root_account_check'));
 
         add_action('check_admin_referer', array($this, 'logout_without_confirm'), 10, 2);
+        add_action('admin_init', array($this, 'ajax_log_out_everywhere'));
     }
 
     public function wpdev_login_session( $expire ) { // Set login session limit in seconds
-        //return YEAR_IN_SECONDS;
-        // return MONTH_IN_SECONDS;
-        // return DAY_IN_SECONDS;
-        // return HOUR_IN_SECONDS;
-
+        //return YEAR_IN_SECONDS MONTH_IN_SECONDS HOUR_IN_SECONDS DAY_IN_SECONDS;
         $cookie_expire = get_option(self::$option_name.'_cookie_expire');
 
         if(empty($cookie_expire)){
@@ -56,7 +53,7 @@ class MooWP_User extends MooWP_App {
     public function render_profile_fields( $user ) {
         $moo_user_key = $this->_generate_moo_key($user->ID);
 
-        $url = $this->moosocial_address_url . '/wordpress_integrations/api/get_user';
+        $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE. '/get_user';
         $post = [
             'security_key' => $this->moosocial_security_key,
             'id'   => $user->ID,
@@ -83,7 +80,7 @@ class MooWP_User extends MooWP_App {
 
     public function save_profile_fields( $user_id ) {
 
-        if( ! isset( $_POST[ '_wpnonce' ] ) || ! wp_verify_nonce( $_POST[ '_wpnonce' ], 'update-user_' . $user_id ) ) {
+        if( ! isset( $_POST[ '_wpnonce' ] ) || ! wp_verify_nonce( sanitize_text_field(wp_unslash($_POST[ '_wpnonce' ])), 'update-user_' . $user_id ) ) {
             return;
         }
 
@@ -92,7 +89,6 @@ class MooWP_User extends MooWP_App {
         }
 
         $this->_generate_moo_key($user_id);
-        //update_user_meta( $user_id, 'drinks', sanitize_text_field( $_POST[ 'drinks' ] ) );
     }
 
     public function check_user_email_updated( $user_id, $old_data ) {
@@ -103,7 +99,7 @@ class MooWP_User extends MooWP_App {
 
         if ( $new_user_email !== $old_user_email ) {
             $moo_user_key = $this->_generate_moo_key($user_id);
-            $url = $this->moosocial_address_url.'/wordpress_integrations/api/email_updated';
+            $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/email_updated';
             $post = [
                 'security_key' => $this->moosocial_security_key,
                 'id'   => $user_id,
@@ -121,7 +117,7 @@ class MooWP_User extends MooWP_App {
     public function after_register_new_user($user_id) {
         $user_info = get_userdata( $user_id );
         $moo_user_key = $this->_generate_moo_key($user_info->ID);
-        $url = $this->moosocial_address_url.'/wordpress_integrations/api/create_user';
+        $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/create_user';
         $post = [
             'id'   => $user_info->ID,
             'user_key' => $moo_user_key,
@@ -133,35 +129,18 @@ class MooWP_User extends MooWP_App {
         $this->curl_post($url, $post, 'json');
     }
 
-    public function after_login_user($user_email){
-        /*$url = $this->moosocial_address_url.'/wordpress_integrations/api/login';
-        $user = get_user_by('email', $user_email);
+    public function after_login_user($user_login, WP_User $user){
+        $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/clear_destroy_sessions';
         $moo_user_key = $this->_generate_moo_key($user->ID);
-        $post = [
-            'id'   => $user->ID,
+        $post_data = array(
+            'user_id' => $user->ID,
             'user_key' => $moo_user_key,
-            'email' => $user->user_email,
-            'username' => $user->user_login,
-            'firstname'   => $user->user_firstname,
-            'lastname'   => $user->user_lastname
-        ];
-        $this->curl_post($url, $post, 'json');*/
+            'security_key' => $this->moosocial_security_key
+        );
+        $this->curl_post($url, $post_data,'json');
     }
 
     public function after_logout_user($user_id){
-        /*$user_info = get_userdata($user_id);
-        $url = $this->moosocial_address_url.'/wordpress_integrations/api/logout';
-        $moo_user_key = $this->_generate_moo_key($user_info->ID);
-        $post = [
-            'id'   => $user_info->ID,
-            'user_key' => $moo_user_key,
-            'email' => $user_info->user_email,
-            'username' => $user_info->user_login,
-            'firstname'   => $user_info->user_firstname,
-            'lastname'   => $user_info->user_lastname
-        ];
-        $this->curl_post($url, $post, 'json');*/
-
         $expiration = time() - MONTH_IN_SECONDS;
         $moo_user_key = $this->_generate_moo_key($user_id);
         $secure = ( 'https' === parse_url( wp_login_url(), PHP_URL_SCHEME ) );
@@ -181,7 +160,7 @@ class MooWP_User extends MooWP_App {
     public function before_delete_user( $user_id ) {
         $user_info = get_userdata( $user_id );
         $moo_user_key = $this->_generate_moo_key($user_info->ID);
-        $url = $this->moosocial_address_url.'/wordpress_integrations/api/delete_user';
+        $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/delete_user';
         $post = [
             'security_key' => $this->moosocial_security_key,
             'id'   => $user_info->ID,
@@ -230,10 +209,30 @@ class MooWP_User extends MooWP_App {
          * Allow logout without confirmation
          */
         if ($action == "log-out" && !isset($_GET['_wpnonce'])) {
-            $redirect_to = isset($_REQUEST['redirect_to']) ? $_REQUEST['redirect_to'] : 'url-you-want-to-redirect';
+            $redirect_to = isset($_REQUEST['redirect_to']) ? sanitize_url($_REQUEST['redirect_to']) : 'url-you-want-to-redirect';
             $location = str_replace('&amp;', '&', wp_logout_url($redirect_to));
             header("Location: $location");
             die;
+        }
+    }
+
+    /*
+     * Click Button Log Out Everywhere
+     * */
+    public function ajax_log_out_everywhere(){
+        $action = (isset($_POST['action'])) ? sanitize_text_field($_POST['action']) : '';
+        $user_id = (isset($_POST['user_id'])) ? absint($_POST['user_id']) : '';
+
+        if(!empty($action) && !empty($user_id) && $action == 'destroy-sessions' ){
+            $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/add_destroy_sessions';
+            $moo_user_key = $this->_generate_moo_key($user_id);
+
+            $post_data = array(
+                'user_id' => $user_id,
+                'user_key' => $moo_user_key,
+                'security_key' => $this->moosocial_security_key
+            );
+            $this->curl_post($url, $post_data,'json');
         }
     }
 }

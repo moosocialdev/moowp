@@ -1,1 +1,1 @@
-<p><?php echo __( 'Please change the settings accordingly.', 'moowp' ) ?></p>
+<p><?php esc_attr_e( 'Please change the settings accordingly.', 'moowp' ) ?></p>

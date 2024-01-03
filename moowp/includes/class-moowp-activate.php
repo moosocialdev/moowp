@@ -13,7 +13,7 @@ class MooWP_Activate extends MooWP_App {
      */
     public function init_hooks() {
         $this->initiated = true;
-        //register_activation_hook( __FILE__, array( $this, 'moowp_plugin_activate' ) );
+        register_activation_hook( __FILE__, array( $this, 'moowp_plugin_activate' ) );
         add_action('admin_init', array($this, 'load_plugin'));
     }
 

@@ -1,4 +1,4 @@
-<?php $val = get_option(self::$option_name.'_address_url'); ?>
+<?php $val = esc_url(get_option(self::$option_name.'_address_url')); ?>
 <input type="text" class="regular-text" name="<?php echo self::$option_name.'_address_url' ?>" id="<?php echo self::$option_name.'_address_url' ?>" value="<?php echo $val ?>">
 
 <script type="text/javascript">

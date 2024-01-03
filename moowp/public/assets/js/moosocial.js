@@ -56,9 +56,9 @@
 
 				let url_param = '';
 				if(tabId == 'mooTabNotifications'){
-					url_param = '/wp-json/moosocial/notifications/all';
+					url_param = '/wp-json/'+mooOption.MOOWP_APP_NAMESPACE+'/notifications/all';
 				}else if(tabId == 'mooTabMessages'){
-					url_param = '/wp-json/moosocial/conversations/all';
+					url_param = '/wp-json/'+mooOption.MOOWP_APP_NAMESPACE+'/conversations/all';
 				}
 
 				if(url_param ==''){
@@ -91,7 +91,7 @@
 				$('#mooPopup').removeClass('moo-is-loading');
 			},
 			check_notification_count: function (){
-				let url_param = '/wp-json/moosocial/notifications/refresh';
+				let url_param = '/wp-json/'+mooOption.MOOWP_APP_NAMESPACE+'/notifications/refresh';
 
 				$.ajax({
 					url: mooOption.wp_address_url + url_param,
@@ -150,7 +150,7 @@
 				$('#mooPopup').find('#markAllNotificationAsRead').unbind('click').click(function (e){
 					e.preventDefault();
 
-					let url_param = '/wp-json/moosocial/notifications/mark_all_read';
+					let url_param = '/wp-json/'+mooOption.MOOWP_APP_NAMESPACE+'/notifications/mark_all_read';
 
 					$.ajax({
 						url: mooOption.wp_address_url + url_param,
@@ -181,7 +181,7 @@
 				$('#mooPopup').find('#clearAllNotifications').unbind('click').click(function (e){
 					e.preventDefault();
 
-					let url_param = '/wp-json/moosocial/notifications/clear_all_notifications';
+					let url_param = '/wp-json/'+mooOption.MOOWP_APP_NAMESPACE+'/notifications/clear_all_notifications';
 
 					$.ajax({
 						url: mooOption.wp_address_url + url_param,
@@ -209,7 +209,7 @@
 					$(this).click(function (e){
 						e.preventDefault();
 
-						let url_param = '/wp-json/moosocial/notifications/mark_read';
+						let url_param = '/wp-json/'+mooOption.MOOWP_APP_NAMESPACE+'/notifications/mark_read';
 						let status = $(this).attr('data-status');
 						let $notification_id = $(this).attr('data-id');
 
@@ -257,7 +257,7 @@
 					$(this).click(function (e){
 						e.preventDefault();
 
-						let url_param = '/wp-json/moosocial/notifications/remove';
+						let url_param = '/wp-json/'+mooOption.MOOWP_APP_NAMESPACE+'/notifications/remove';
 						let $notification_id = $(this).attr('data-id');
 
 						$.ajax({

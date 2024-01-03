@@ -1,11 +1,11 @@
-<?php $val = get_option(self::$option_name.'_security_key'); ?>
+<?php $val = esc_attr(get_option(self::$option_name.'_security_key')); ?>
 <input type="text" class="regular-text bg-accent <?php if(empty($val)): ?>hidden<?php endif; ?>" name="<?php echo self::$option_name.'_security_key' ?>" id="<?php echo self::$option_name.'_security_key' ?>" value="<?php echo $val ?>" readonly>
 <!--<button id="<?php //echo self::$option_name.'_security_button' ?>" class="button button-secondary" type="button">
     <?php
 //        if(empty($val)){
-//            echo __( 'Generate Security Key', 'moowp' );
+//            esc_attr_e( 'Generate Security Key', 'moowp' );
 //        }else{
-//            echo __( 'Change Security Key', 'moowp' );
+//            esc_attr_e( 'Change Security Key', 'moowp' );
 //        }
     ?>
 </button>-->

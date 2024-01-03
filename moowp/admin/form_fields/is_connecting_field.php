@@ -1,9 +1,9 @@
-<?php $val = get_option(self::$option_name.'_is_connecting'); ?>
+<?php $val = absint(get_option(self::$option_name.'_is_connecting')); ?>
 <?php
 if($val == 1){
-    _e( 'Yes', 'moosocial' );
+    esc_attr_e( 'Yes', 'moowp' );
 }else{
-    _e( 'No', 'moosocial' );
+    esc_attr_e( 'No', 'moowp' );
 }
 ?>
 <!--<select class="regular-text" name="<?php /*echo self::$option_name.'_is_connecting' */?>" id="<?php /*echo self::$option_name.'_is_connecting' */?>">

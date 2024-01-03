@@ -108,7 +108,7 @@ class MooWP_App {
             header('Expires: ' . gmdate('D, d M Y H:i:s \G\M\T', time() + 3600));
             header('Content-type: application/json');
 
-            echo json_encode(array(
+            echo wp_json_encode(array(
                 'error_code' => MOOWP_ERROR_NOT_LOGIN,
                 'success' => false,
                 'messages' => ''
@@ -160,7 +160,7 @@ class MooWP_App {
             $page_source = curl_exec($ch);
 
             if(curl_errno($ch)){
-                $page_source = json_encode(array(
+                $page_source = wp_json_encode(array(
                     'success' => false,
                     'messages' => 'Request Error:' . curl_error($ch),
                     'code' => '',
@@ -217,7 +217,7 @@ class MooWP_App {
             $page_source = curl_exec($ch);
 
             if(curl_errno($ch)){
-                $page_source = json_encode(array(
+                $page_source = wp_json_encode(array(
                     'success' => true,
                     'messages' => 'Request Error:' . curl_error($ch),
                     'code' => '',

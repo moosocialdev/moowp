@@ -1,2 +1,2 @@
-<?php $val = get_option(self::$option_name.'_user_root'); ?>
+<?php $val = absint(get_option(self::$option_name.'_user_root')); ?>
 <input type="text" class="regular-text" name="<?php echo self::$option_name.'_user_root' ?>" id="<?php echo $this->option_name.'_user_root' ?>" value="<?php echo $val ?>">
