@@ -117,6 +117,40 @@ class MooWP_Request extends MooWP_App {
                 'permission_callback' => array($this, 'get_permissions_check' ),
             )
         ) );
+
+        register_rest_route( MOOWP_APP_NAMESPACE.'/reset', '/new_setup', array(
+            array(
+                'methods'             => WP_REST_Server::CREATABLE,
+                'callback'            => array($this, 'do_reset_new_setup' ),
+                'permission_callback' => array($this, 'get_permissions_check' ),
+            )
+        ) );
+    }
+
+    public function do_reset_new_setup($request){
+        $params = $request->get_params();
+        $security_key = $params['security_key'];
+        $user_id = $params['user_id'];
+
+        $result = array(
+            'success' => false,
+            'messages' => '',
+            'data' => array(),
+        );
+
+        if($this->moosocial_security_key == $security_key){
+            update_option(self::$option_name . '_user_map_root', $user_id);
+            update_option(self::$option_name . '_security_key', self::getRandomSecurityKey());
+            update_option(self::$option_name . '_is_connecting', false);
+            update_option( self::$option_name . '_error_flag', false );
+            update_option( self::$option_name . '_is_connecting', false );
+            update_option( self::$option_name . '_pages_menu', '' );
+            update_option( self::$option_name . '_recovery_key', '' );
+            update_option( self::$option_name . '_address_url', '' );
+            $result['success'] = true;
+        }
+
+        return new WP_REST_Response( $result, 200 );
     }
 
     public function get_permissions_check( $request ) {
@@ -617,7 +651,7 @@ class MooWP_Request extends MooWP_App {
                 $isAdminWP = in_array('administrator', $user_info->roles, true);
 
                 if($isAdminWP){
-                    $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/login_admin_verification';
+                    $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/check-admin-login-panel';
 
                     $post = [
                         'security_key' => $this->moosocial_security_key,

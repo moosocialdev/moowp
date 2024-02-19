@@ -1,0 +1,2 @@
+<?php $val = time(); ?>
+<input type="text" class="regular-text" name="<?php echo self::$option_name.'_setup_isset_moo' ?>" id="<?php echo self::$option_name.'_setup_isset_moo' ?>" value="<?php echo $val ?>">

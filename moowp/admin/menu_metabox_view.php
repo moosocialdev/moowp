@@ -16,9 +16,12 @@
     </p>
     <?php else: ?>
     <p class="button-controls">
-      <span class="add-to-menu">
+      <span class="add-to-menu" style="position: relative;">
         <input type="submit"<?php disabled($nav_menu_selected_id, 0); ?> class="button-secondary submit-add-to-menu right" value="<?php esc_attr_e('Add to Menu', 'moowp'); ?>" name="add-moosocial-links-menu-item" id="submit-moosocial-links" />
-        <span class="spinner"></span>
+        <span class="spinner" style="position: absolute; left: 50%; top: 1px; margin-left: -10px;"></span>
+      </span>
+      <span class="add-to-menu" style="margin-right: 3px; margin-left: 3px;">
+        <a class="button-secondary right" href="?moosocialmenu=load"><?php esc_attr_e('Reload Menu', 'moowp'); ?></a>
       </span>
     </p>
     <?php endif; ?>

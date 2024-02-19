@@ -41,6 +41,14 @@
             <?php endif; ?>
         </p>
     </div>
+    <?php if($this->moosocial_is_connecting == 0 && !isset($_GET['setup_isset_moo'])): ?>
+        <p>
+            <?php
+                $link = '<a href="'.admin_url( "admin.php?page=".$_GET["page"]."&setup_isset_moo=1" ).'">'.__('click here', 'moowp').'</a>';
+                echo sprintf( __( 'If you already have a moosocial website, %s to setup it.', 'moowp' ), $link );
+            ?>
+        </p>
+    <?php endif; ?>
 <?php else: ?>
     <div class="internal-message notice inline notice-warning notice-alt">
         <p style="color: #00a32a">
@@ -67,7 +75,7 @@
                                     },
                                     success: function(response){
                                         if(response.success == true){
-                                            window.location.href = "<?php echo $this->moosocial_address_url.'/'.MOOWP_CORE_NAMESPACE.'/panel_root_admin/'.$current_user->moo_user_key.'/' ?>" + response.data.admin_login_token;
+                                            window.location.href = "<?php echo $this->moosocial_address_url.'/'.MOOWP_CORE_NAMESPACE.'/go-to-admin-panel/'.$current_user->moo_user_key.'/' ?>" + response.data.admin_login_token;
                                         }else{
                                             jQuery('#root-admin-link').removeClass('disabled');
                                         }
@@ -80,4 +88,44 @@
             <?php endif; ?>
         </p>
     </div>
+<?php endif; ?>
+<?php if($this->moosocial_is_connecting == 1): ?>
+    <p>
+        <?php
+        $link = '<a id="resetNewSite" href="javascript:void(0);">'.__('click here', 'moowp').'</a>';
+        echo sprintf( __( 'If you want to set up a new moosocial website, please %s.', 'moowp' ), $link );
+        ?>
+    </p>
+    <script type="text/javascript">
+        jQuery(document).ready(function (){
+            jQuery('#resetNewSite').click(function (e){
+                e.preventDefault();
+
+                if (window.confirm("<?php echo __( 'Are you sure reset to install new moosocial site?', 'moowp' ) ?>")) {
+                    if(!jQuery(this).hasClass('disabled')){
+                        var url_recover = '<?php echo $wp_address_url.'/wp-json/'.MOOWP_APP_NAMESPACE.'/reset/new_setup' ?>';
+                        jQuery.ajax({
+                            type: "POST",
+                            url: url_recover,
+                            dataType:"json",
+                            data: {
+                                security_key: '<?php echo $this->moosocial_security_key ?>',
+                                user_id: <?php echo $current_user->ID ?>
+                            },
+                            beforeSend: function( xhr ) {
+                                jQuery('#confirm-admin-security').addClass('disabled');
+                            },
+                            success: function(response){
+                                if(response.success == true){
+                                    location.href = window.location.href;
+                                }else{
+                                    jQuery('#resetNewSite').removeClass('disabled');
+                                }
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    </script>
 <?php endif; ?>
