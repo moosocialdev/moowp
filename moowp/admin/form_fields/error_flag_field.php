@@ -1,4 +1,4 @@
-<?php $val = get_option(self::$option_name.'_error_flag'); ?>
+<?php $val = absint(get_option(self::$option_name.'_error_flag')); ?>
 <?php
     if($val == 1){
         esc_attr_e( 'Yes', 'moowp' );

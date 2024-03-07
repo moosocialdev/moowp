@@ -37,7 +37,7 @@ class MooWP_User extends MooWP_App {
 
     public function wpdev_login_session( $expire ) { // Set login session limit in seconds
         //return YEAR_IN_SECONDS MONTH_IN_SECONDS HOUR_IN_SECONDS DAY_IN_SECONDS;
-        $cookie_expire = get_option(self::$option_name.'_cookie_expire');
+        $cookie_expire = absint(get_option(self::$option_name.'_cookie_expire'));
 
         if(empty($cookie_expire)){
             $cookie_expire = DAY_IN_SECONDS;
@@ -132,6 +132,14 @@ class MooWP_User extends MooWP_App {
     public function after_login_user($user_login, WP_User $user){
         $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/clear_destroy_sessions';
         $moo_user_key = $this->_generate_moo_key($user->ID);
+
+        $expiration = time() + DAY_IN_SECONDS;
+        if ( COOKIEPATH != SITECOOKIEPATH ) {
+            setcookie(COOKIE_WPMOO_KEY, $moo_user_key, $expiration, SITECOOKIEPATH, COOKIE_DOMAIN, is_ssl());
+        }else{
+            setcookie(COOKIE_WPMOO_KEY, $moo_user_key, $expiration, COOKIEPATH, COOKIE_DOMAIN, is_ssl());
+        }
+
         $post_data = array(
             'user_id' => $user->ID,
             'user_key' => $moo_user_key,
@@ -176,18 +184,13 @@ class MooWP_User extends MooWP_App {
     public function auth_cookie_login($cookie, $user_id, $expiration, $scheme, $token){
         if($scheme == 'logged_in'){
             $moo_user_key = $this->_generate_moo_key($user_id);
-            $secure = ( 'https' === parse_url( wp_login_url(), PHP_URL_SCHEME ) );
-            if ( COOKIEPATH != SITECOOKIEPATH ) {
-                setcookie(COOKIE_WPMOO_KEY, $moo_user_key, $expiration, SITECOOKIEPATH, COOKIE_DOMAIN, $secure);
-            }else{
-                setcookie(COOKIE_WPMOO_KEY, $moo_user_key, $expiration, COOKIEPATH, COOKIE_DOMAIN, $secure);
-            }
+            $cookie .= '|'.$moo_user_key;
         }
         return $cookie;
     }
 
     public function user_row_actions($actions, $user_object){
-        $user_map_root_id = get_option(self::$option_name.'_user_map_root');
+        $user_map_root_id = absint(get_option(self::$option_name.'_user_map_root'));
 
         if ( $user_map_root_id == $user_object->ID ){
             unset($actions['delete']);
@@ -196,7 +199,7 @@ class MooWP_User extends MooWP_App {
     }
 
     public function root_account_check( $user_id ) {
-        $user_map_root_id = get_option(self::$option_name.'_user_map_root');
+        $user_map_root_id = absint(get_option(self::$option_name.'_user_map_root'));
 
         if ( $user_map_root_id == $user_id ){
             wp_die("User has a root account and can't be deleted");
@@ -209,7 +212,7 @@ class MooWP_User extends MooWP_App {
          * Allow logout without confirmation
          */
         if ($action == "log-out" && !isset($_GET['_wpnonce'])) {
-            $redirect_to = isset($_REQUEST['redirect_to']) ? sanitize_url($_REQUEST['redirect_to']) : 'url-you-want-to-redirect';
+            $redirect_to = isset($_REQUEST['redirect_to']) ? sanitize_url($_REQUEST['redirect_to']) : home_url();
             $location = str_replace('&amp;', '&', wp_logout_url($redirect_to));
             header("Location: $location");
             die;

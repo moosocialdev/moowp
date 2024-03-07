@@ -39,10 +39,10 @@ class MooWP_App {
     }
 
     private function get_recovery_key(){
-        $this->moosocial_recovery_key = get_option(self::$option_name.'_recovery_key');
+        $this->moosocial_recovery_key = esc_attr(get_option(self::$option_name.'_recovery_key'));
     }
     private function get_page_menu(){
-        $moo_menu_data = get_option(self::$option_name.'_pages_menu');
+        $moo_menu_data = esc_attr(get_option(self::$option_name.'_pages_menu'));
         if(!empty($moo_menu_data)){
             $data = json_decode($moo_menu_data, true);
             if($data == null){
@@ -55,15 +55,15 @@ class MooWP_App {
         }
     }
     private function get_moo_error_flag(){
-        $moosocial_error_flag = get_option(self::$option_name.'_error_flag');
+        $moosocial_error_flag = absint(get_option(self::$option_name.'_error_flag'));
         $this->moosocial_error_flag = $moosocial_error_flag;
     }
     private function get_moo_is_mapping(){
-        $moosocial_is_connecting = get_option(self::$option_name.'_is_connecting');
+        $moosocial_is_connecting = absint(get_option(self::$option_name.'_is_connecting'));
         $this->moosocial_is_connecting = $moosocial_is_connecting;
     }
     private function get_moo_address_url(){
-        $moosocial_address_url = get_option(self::$option_name.'_address_url');
+        $moosocial_address_url = esc_attr(get_option(self::$option_name.'_address_url'));
         if($moosocial_address_url == false){
             $this->moosocial_address_url = '';
         }else{
@@ -74,14 +74,14 @@ class MooWP_App {
         }
     }
     private function get_moo_security_key(){
-        $this->moosocial_security_key = get_option(self::$option_name.'_security_key');
+        $this->moosocial_security_key = esc_attr(get_option(self::$option_name.'_security_key'));
     }
     private function get_moo_notification_position(){
-        $moosocial_notification_position = get_option(self::$option_name.'_notification_position');
+        $moosocial_notification_position = esc_attr(get_option(self::$option_name.'_notification_position'));
         $this->moosocial_notification_position = $moosocial_notification_position;
     }
     private function get_moo_chat_plugin_enable(){
-        $moosocial_chat_plugin_enable = get_option(self::$option_name.'_chat_plugin_enable');
+        $moosocial_chat_plugin_enable = absint(get_option(self::$option_name.'_chat_plugin_enable'));
         $this->moosocial_chat_plugin_enable = $moosocial_chat_plugin_enable;
     }
 

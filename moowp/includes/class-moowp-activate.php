@@ -46,7 +46,7 @@ class MooWP_Activate extends MooWP_App {
         //update_option(self::$option_name . '_error_flag', false);
         //update_option(self::$option_name . '_pages_menu', '');
         //update_option(self::$option_name . '_recovery_key', '');
-        if ( is_admin() && get_option( 'MOOWP_Activated' ) == 'moowp' ) {
+        if ( is_admin() && esc_attr(get_option( 'MOOWP_Activated' )) == 'moowp' ) {
             // delete the added option so that it is no longer triggered
             // and do what needs to be done...
             delete_option( 'MOOWP_Activated' );
@@ -54,6 +54,13 @@ class MooWP_Activate extends MooWP_App {
             // Do something once, after activating the plugin
             // For example: add_action('init', 'my_init_function' );
         }else{
+            $user_map_root = absint(get_option(self::$option_name.'_user_map_root'));
+            if(empty($user_map_root)){
+                $current_user = wp_get_current_user();
+                if(in_array('administrator', $current_user->roles)){
+                    update_option(self::$option_name . '_user_map_root', $current_user->ID);
+                }
+            }
 
         }
 

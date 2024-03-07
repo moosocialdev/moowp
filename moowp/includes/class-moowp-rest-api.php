@@ -144,7 +144,7 @@ class MooWP_REST_API extends MooWP_App {
         );
 
         if($request_security_key == $this->moosocial_security_key){
-            $user_map_root_id = get_option(self::$option_name.'_user_map_root');
+            $user_map_root_id = absint(get_option(self::$option_name.'_user_map_root'));
 
             if(!empty($user_map_root_id)){
                 $user_obj = get_user_by('id', $user_map_root_id);
