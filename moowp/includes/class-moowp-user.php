@@ -27,7 +27,7 @@ class MooWP_User extends MooWP_App {
         add_filter('user_register', array($this, 'after_register_new_user' ));
 
         add_filter('wp_logout', array($this, 'after_logout_user'));
-        add_filter('auth_cookie', array($this, 'auth_cookie_login'), 10, 5);
+        //add_filter('auth_cookie', array($this, 'auth_cookie_login'), 10, 5);
         add_filter('user_row_actions', array($this, 'user_row_actions'), 1, 2);
         add_action('delete_user', array($this, 'root_account_check'));
 
