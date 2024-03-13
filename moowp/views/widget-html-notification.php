@@ -1,3 +1,4 @@
+<?php if ( ! defined( 'ABSPATH' ) ) {exit;} ?>
 <?php
     if( isset($showInHeader) && $showInHeader === true ){
         $position = 'top-header';

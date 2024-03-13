@@ -265,7 +265,7 @@ class MooWP_Admin extends MooWP_App{
         if($pagenow == 'nav-menus.php' && !defined('DOING_AJAX')) {
             $result_data = $this->curl_post($url, $post_data,'json');
             if(isset($result_data['success']) && $result_data['success'] == true){
-                update_option(self::$option_name.'_pages_menu', wp_json_encode($result_data['data']));
+                update_option(self::$option_name.'_pages_menu', maybe_serialize($result_data['data']));
                 $this->moosocial_pages_menu = $result_data['data'];
             }
         }

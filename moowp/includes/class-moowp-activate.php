@@ -46,7 +46,7 @@ class MooWP_Activate extends MooWP_App {
         //update_option(self::$option_name . '_error_flag', false);
         //update_option(self::$option_name . '_pages_menu', '');
         //update_option(self::$option_name . '_recovery_key', '');
-        if ( is_admin() && esc_attr(get_option( 'MOOWP_Activated' )) == 'moowp' ) {
+        if ( is_admin() && get_option( 'MOOWP_Activated' ) == 'moowp' ) {
             // delete the added option so that it is no longer triggered
             // and do what needs to be done...
             delete_option( 'MOOWP_Activated' );

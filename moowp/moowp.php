@@ -10,6 +10,10 @@
 * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 **/
 
+if ( ! defined( 'ABSPATH' ) ) {
+    exit;
+}
+
 define('MOOWP_PLUGIN_NAME', 'mooWP');
 define('MOOWP_PLUGIN_DIR', plugin_dir_path( __FILE__ ));
 define('MOOWP_PLUGIN_URL', plugin_dir_url( __FILE__ ));

@@ -154,14 +154,8 @@ class MooWP_User extends MooWP_App {
         $secure = ( 'https' === parse_url( wp_login_url(), PHP_URL_SCHEME ) );
         if ( COOKIEPATH != SITECOOKIEPATH ) {
             setcookie(COOKIE_WPMOO_KEY, $moo_user_key, $expiration, SITECOOKIEPATH, COOKIE_DOMAIN, $secure);
-            array_map(function ($k) {
-                setcookie($k, FALSE, time()-YEAR_IN_SECONDS, SITECOOKIEPATH, COOKIE_DOMAIN);
-            }, array_keys($_COOKIE));
         }else{
             setcookie(COOKIE_WPMOO_KEY, $moo_user_key, $expiration, COOKIEPATH, COOKIE_DOMAIN, $secure);
-            array_map(function ($k) {
-                setcookie($k, FALSE, time()-YEAR_IN_SECONDS, COOKIEPATH, COOKIE_DOMAIN);
-            }, array_keys($_COOKIE));
         }
     }
 

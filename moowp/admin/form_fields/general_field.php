@@ -1,1 +1,2 @@
-<p><?php esc_attr_e( 'Please change the settings accordingly.', 'moowp' ) ?></p>
+<?php if ( ! defined( 'ABSPATH' ) ) {exit;} ?>
+<p><?php echo esc_html(__( 'Please change the settings accordingly.', 'moowp' )) ?></p>

@@ -1,5 +1,6 @@
+<?php if ( ! defined( 'ABSPATH' ) ) {exit;} ?>
 <div class="wrap">
-    <h2><?php esc_html_e( 'mooWP Plugin', 'moowp' ); ?></h2>
+    <h2><?php echo esc_html(__( 'mooWP Plugin', 'moowp' )); ?></h2>
     <form action="options.php" method="post">
         <?php
         settings_errors();
