@@ -233,14 +233,11 @@ class MooWP_Admin extends MooWP_App{
         register_setting( $this->plugin_name, self::$option_name . '_notification_position', 'text' );
         register_setting( $this->plugin_name, self::$option_name . '_chat_plugin_enable', 'boolean' );
         register_setting( $this->plugin_name, self::$option_name . '_security_key', 'text' );
-        register_setting( $this->plugin_name, self::$option_name . '_pages_menu', 'text' );
-        register_setting( $this->plugin_name, self::$option_name . '_user_map_root', 'integer' );
-        register_setting( $this->plugin_name, self::$option_name . '_error_flag', 'boolean' );
-        register_setting( $this->plugin_name, self::$option_name . '_is_connecting', 'boolean' );
-        register_setting( $this->plugin_name, self::$option_name . '_setup_isset_moo', 'text' );
-        register_setting( $this->plugin_name, self::$option_name . '_notification_position', 'text' );
-        register_setting( $this->plugin_name, self::$option_name . '_chat_plugin_enable', 'boolean' );
-        register_setting( $this->plugin_name, self::$option_name . '_user_map_root', 'integer' );
+        //register_setting( $this->plugin_name, self::$option_name . '_pages_menu', 'text' );
+        //register_setting( $this->plugin_name, self::$option_name . '_user_map_root', 'integer' );
+        //register_setting( $this->plugin_name, self::$option_name . '_error_flag', 'boolean' );
+        //register_setting( $this->plugin_name, self::$option_name . '_is_connecting', 'boolean' );
+        //register_setting( $this->plugin_name, self::$option_name . '_setup_isset_moo', 'text' );
         //register_setting( $this->plugin_name, self::$option_name . '_radio_bool', '');
         //register_setting( $this->plugin_name, self::$option_name . '_number', 'integer' );
     }

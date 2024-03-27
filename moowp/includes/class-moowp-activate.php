@@ -32,9 +32,7 @@ class MooWP_Activate extends MooWP_App {
 
         if($isAdminWP) {
             update_option(self::$option_name . '_user_map_root', $current_user->ID);
-            update_option(self::$option_name . '_error_flag', false);
             update_option(self::$option_name . '_security_key', self::getRandomSecurityKey());
-            update_option(self::$option_name . '_is_connecting', false);
         }
     }
 
