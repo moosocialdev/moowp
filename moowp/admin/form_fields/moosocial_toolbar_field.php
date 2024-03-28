@@ -44,10 +44,7 @@
     </div>
     <?php if($this->moosocial_is_connecting == 0 && !isset($_GET['setup_isset_moo'])): ?>
         <p>
-            <?php
-                $link = '<a href="'.esc_attr(admin_url( "admin.php?page=moo-setting-page&setup_isset_moo=1" )).'">'.esc_html(__('click here', 'moowp')).'</a>';
-                echo sprintf( esc_html(__( 'If you already have a moosocial website, %s to setup it.', 'moowp' )), $link );
-            ?>
+            <a id="resetNewSite" href="<?php echo esc_attr(admin_url( "admin.php?page=moo-setting-page&setup_isset_moo=1" )) ?>" style="text-decoration: none; color: #000000;"><?php echo esc_html(__( 'If you already have a moosocial website, click here to setup it.', 'moowp' )); ?></a>
         </p>
     <?php endif; ?>
 <?php else: ?>
@@ -92,10 +89,7 @@
 <?php endif; ?>
 <?php if($this->moosocial_is_connecting == 1): ?>
     <p>
-        <?php
-        $link = '<a id="resetNewSite" href="javascript:void(0);">'.esc_html(__('click here', 'moowp')).'</a>';
-        echo sprintf( esc_html(__( 'If you want to set up a new moosocial website, please %s.', 'moowp' )), $link );
-        ?>
+        <a id="resetNewSite" href="javascript:void(0);" style="text-decoration: none; color: red;"><?php echo esc_html(__( 'If you want to set up a new moosocial website, please click here.', 'moowp' )); ?></a>
     </p>
     <script type="text/javascript">
         jQuery(document).ready(function (){

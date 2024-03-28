@@ -1,6 +1,6 @@
 <?php if ( ! defined( 'ABSPATH' ) ) {exit;} ?>
 <?php $val = esc_url(get_option(self::$option_name.'_address_url')); ?>
-<input type="text" class="regular-text" name="<?php echo esc_attr(self::$option_name.'_address_url') ?>" id="<?php echo esc_attr(self::$option_name.'_address_url') ?>" value="<?php echo $val ?>">
+<input type="text" class="regular-text" name="<?php echo esc_attr(self::$option_name.'_address_url') ?>" id="<?php echo esc_attr(self::$option_name.'_address_url') ?>" value="<?php echo esc_attr($val) ?>">
 
 <script type="text/javascript">
     jQuery('document').ready(function (){

@@ -151,7 +151,7 @@ class MooWP_User extends MooWP_App {
     public function after_logout_user($user_id){
         $expiration = time() - MONTH_IN_SECONDS;
         $moo_user_key = $this->_generate_moo_key($user_id);
-        $secure = ( 'https' === parse_url( wp_login_url(), PHP_URL_SCHEME ) );
+        $secure = ( 'https' === wp_parse_url( wp_login_url(), PHP_URL_SCHEME ) );
         if ( COOKIEPATH != SITECOOKIEPATH ) {
             setcookie(COOKIE_WPMOO_KEY, $moo_user_key, $expiration, SITECOOKIEPATH, COOKIE_DOMAIN, $secure);
         }else{

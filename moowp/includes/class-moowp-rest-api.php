@@ -155,10 +155,10 @@ class MooWP_REST_API extends MooWP_App {
                     'user_email' => $user_obj->user_email
                 );
             }else{
-                $result['messages'] = _('Setting of "mooWP Plugin" in Wordpress Site is not correct, please try again', 'moosocial');
+                $result['messages'] = __('Setting of "mooWP Plugin" in Wordpress Site is not correct, please try again', 'moosocial');
             }
         }else{
-            $result['messages'] = _('The wordpress security key is not correct, please try again', 'moosocial');
+            $result['messages'] = __('The wordpress security key is not correct, please try again', 'moosocial');
         }
 
         return new WP_REST_Response( $result, 200 );
@@ -217,7 +217,7 @@ class MooWP_REST_API extends MooWP_App {
             $result['success'] = true;
             $result['data'] = $data;
         }else{
-            $result['messages'] = _('The wordpress security key is not correct, please try again', 'moosocial');
+            $result['messages'] = __('The wordpress security key is not correct, please try again', 'moosocial');
         }
 
         return new WP_REST_Response( $result, 200 );
@@ -259,7 +259,7 @@ class MooWP_REST_API extends MooWP_App {
             /* Restore original Post Data */
             wp_reset_postdata();
         }else{
-            $result['messages'] = _('The wordpress security key is not correct, please try again', 'moosocial');
+            $result['messages'] = __('The wordpress security key is not correct, please try again', 'moosocial');
         }
 
         return new WP_REST_Response( $result, 200 );
@@ -284,7 +284,7 @@ class MooWP_REST_API extends MooWP_App {
 
             $result['success'] = true;
         }else{
-            $result['messages'] = _('The wordpress security key is not correct, please try again', 'moosocial');
+            $result['messages'] = __('The wordpress security key is not correct, please try again', 'moosocial');
         }
 
         return new WP_REST_Response( $result, 200 );
@@ -330,10 +330,10 @@ class MooWP_REST_API extends MooWP_App {
                 );
 
             }else{
-                $result['messages'] = _('User not found!', 'moosocial');
+                $result['messages'] = __('User not found!', 'moosocial');
             }
         }else{
-            $result['messages'] = _('The MooSocial security key is not correct, please try again', 'moosocial');
+            $result['messages'] = __('The MooSocial security key is not correct, please try again', 'moosocial');
         }
 
         /* Restore original Post Data */

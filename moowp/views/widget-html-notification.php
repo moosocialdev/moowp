@@ -7,7 +7,7 @@
     }
 ?>
 
-<div id="mooPopup" class="moo-popup moo-<?php echo $position ?>">
+<div id="mooPopup" class="moo-popup moo-<?php echo esc_attr($position) ?>">
     <div class="moo-popup-main">
         <div class="moo-popup-body">
             <div class="moo-popup-content">
@@ -41,7 +41,7 @@
             </div>
             <?php if($this->moosocial_chat_plugin_enable == 1): ?>
             <div class="moo-action-item moo-action-messages">
-                <a id="moo-action-messages" class="moo-action-btnX moo-action-icon" href="<?php echo $this->moosocial_address_url ?>">
+                <a id="moo-action-messages" class="moo-action-btnX moo-action-icon" href="<?php echo esc_attr($this->moosocial_address_url) ?>">
                     <?php if( isset($showInHeader) && $showInHeader === true ): ?>
                         <span class="moo-group-icon material-symbols-outlined notranslate notranslate moo-icon">chat_bubble_outline</span>
                     <?php else: ?>
@@ -77,4 +77,4 @@
         </div>
     </div>
 </div>
-<div id="mooPopupOverview" class="moo-popup-overview moo-<?php echo $position ?>"></div>
+<div id="mooPopupOverview" class="moo-popup-overview moo-<?php echo esc_attr($position) ?>"></div>
