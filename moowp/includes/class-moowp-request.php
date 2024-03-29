@@ -141,12 +141,12 @@ class MooWP_Request extends MooWP_App {
         if($this->moosocial_security_key == $security_key){
             update_option(self::$option_name . '_user_map_root', $user_id);
             update_option(self::$option_name . '_security_key', self::getRandomSecurityKey());
-            update_option(self::$option_name . '_is_connecting', false);
-            update_option( self::$option_name . '_error_flag', false );
-            update_option( self::$option_name . '_is_connecting', false );
-            update_option( self::$option_name . '_pages_menu', '' );
-            update_option( self::$option_name . '_recovery_key', '' );
-            update_option( self::$option_name . '_address_url', '' );
+            update_option(self::$option_name . '_is_connecting', 0);
+            update_option(self::$option_name . '_error_flag', 0);
+            update_option(self::$option_name . '_pages_menu', '');
+            update_option(self::$option_name . '_recovery_key', '');
+            update_option(self::$option_name . '_address_url', '');
+            update_option(self::$option_name . '_re_address_url', '');
             $result['success'] = true;
         }
 
@@ -179,15 +179,9 @@ class MooWP_Request extends MooWP_App {
         if(!empty($user_check)){
             $moo_user_key = $this->_generate_moo_key($user_id);
 
-            $users = get_users(
-                array(
-                    'meta_key' => 'moo_user_key',
-                    'meta_value' => $moo_user_key
-                )
-            );
+            $user_info = $this->get_user_by_meta_key($moo_user_key);
 
-            if(!empty($users)){
-                $user_info = $users[0];
+            if(!empty($user_info)){
 
                 $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/html_notifications';
 
@@ -233,15 +227,9 @@ class MooWP_Request extends MooWP_App {
         if(!empty($user_check)){
             $moo_user_key = $this->_generate_moo_key($user_id);
 
-            $users = get_users(
-                array(
-                    'meta_key' => 'moo_user_key',
-                    'meta_value' => $moo_user_key
-                )
-            );
+            $user_info = $this->get_user_by_meta_key($moo_user_key);
 
-            if(!empty($users)){
-                $user_info = $users[0];
+            if(!empty($user_info)){
 
                 $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/html_conversations';
 
@@ -288,15 +276,9 @@ class MooWP_Request extends MooWP_App {
         if(!empty($user_check)){
             $moo_user_key = $this->_generate_moo_key($user_id);
 
-            $users = get_users(
-                array(
-                    'meta_key' => 'moo_user_key',
-                    'meta_value' => $moo_user_key
-                )
-            );
+            $user_info = $this->get_user_by_meta_key($moo_user_key);
 
-            if(!empty($users)){
-                $user_info = $users[0];
+            if(!empty($user_info)){
 
                 $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/notifications_refresh';
 
@@ -348,15 +330,9 @@ class MooWP_Request extends MooWP_App {
         if(!empty($user_check)){
             $moo_user_key = $this->_generate_moo_key($user_id);
 
-            $users = get_users(
-                array(
-                    'meta_key' => 'moo_user_key',
-                    'meta_value' => $moo_user_key
-                )
-            );
+            $user_info = $this->get_user_by_meta_key($moo_user_key);
 
-            if(!empty($users)){
-                $user_info = $users[0];
+            if(!empty($user_info)){
 
                 $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/mark_all_read';
 
@@ -406,15 +382,9 @@ class MooWP_Request extends MooWP_App {
         if(!empty($user_check)){
             $moo_user_key = $this->_generate_moo_key($user_id);
 
-            $users = get_users(
-                array(
-                    'meta_key' => 'moo_user_key',
-                    'meta_value' => $moo_user_key
-                )
-            );
+            $user_info = $this->get_user_by_meta_key($moo_user_key);
 
-            if(!empty($users)){
-                $user_info = $users[0];
+            if(!empty($user_info)){
 
                 $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/clear_all_notifications';
 
@@ -466,15 +436,9 @@ class MooWP_Request extends MooWP_App {
         if(!empty($user_check)){
             $moo_user_key = $this->_generate_moo_key($user_id);
 
-            $users = get_users(
-                array(
-                    'meta_key' => 'moo_user_key',
-                    'meta_value' => $moo_user_key
-                )
-            );
+            $user_info = $this->get_user_by_meta_key($moo_user_key);
 
-            if(!empty($users)){
-                $user_info = $users[0];
+            if(!empty($user_info)){
 
                 $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/mark_read';
 
@@ -528,15 +492,9 @@ class MooWP_Request extends MooWP_App {
         if(!empty($user_check)){
             $moo_user_key = $this->_generate_moo_key($user_id);
 
-            $users = get_users(
-                array(
-                    'meta_key' => 'moo_user_key',
-                    'meta_value' => $moo_user_key
-                )
-            );
+            $user_info = $this->get_user_by_meta_key($moo_user_key);
 
-            if(!empty($users)){
-                $user_info = $users[0];
+            if(!empty($user_info)){
 
                 $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/notification_remove';
 
@@ -583,15 +541,9 @@ class MooWP_Request extends MooWP_App {
             'data' => array(),
         );
 
-        $users = get_users(
-            array(
-                'meta_key' => 'moo_user_key',
-                'meta_value' => $moo_user_key
-            )
-        );
+        $user_info = $this->get_user_by_meta_key($moo_user_key);
 
-        if(!empty($users)){
-            $user_info = $users[0];
+        if(!empty($user_info)){
 
             $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/create_user';
 
@@ -638,15 +590,9 @@ class MooWP_Request extends MooWP_App {
         if(!empty($user_check)){
             $moo_user_key = $this->_generate_moo_key($user_id);
 
-            $users = get_users(
-                array(
-                    'meta_key' => 'moo_user_key',
-                    'meta_value' => $moo_user_key
-                )
-            );
+            $user_info = $this->get_user_by_meta_key($moo_user_key);
 
-            if(!empty($users)){
-                $user_info = $users[0];
+            if(!empty($user_info)){
 
                 $isAdminWP = in_array('administrator', $user_info->roles, true);
 
@@ -701,21 +647,18 @@ class MooWP_Request extends MooWP_App {
             'data' => array(),
         );
 
-        $users = get_users(
-            array(
-                'meta_key' => 'moo_user_key',
-                'meta_value' => $moo_user_key
-            )
-        );
+        $user_info = $this->get_user_by_meta_key($moo_user_key);
 
-        if(!empty($users)){
+        if(!empty($user_info)){
             $result['success'] = true;
             $result['messages'] = 'true';
             wp_destroy_current_session();
             wp_clear_auth_cookie();
             wp_set_current_user( 0 );
 
+            // phpcs:disable WordPress.Security.NonceVerification.Recommended
             $redirect_url = (isset($_GET['moowp_redirect'])) ? sanitize_url($_GET['moowp_redirect']) : '';
+            // phpcs:enable
 
             if(!empty($redirect_url)){
                 wp_redirect(urldecode($redirect_url));

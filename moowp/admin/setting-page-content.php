@@ -6,6 +6,9 @@
         settings_errors();
         settings_fields( MOOWP_PLUGIN_NAME );
         do_settings_sections( MOOWP_PLUGIN_NAME );
-        submit_button(); ?>
+        if($show_button_submit){
+            submit_button();
+        }
+        ?>
     </form>
 </div>

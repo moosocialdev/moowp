@@ -13,17 +13,21 @@ class MooWP_Admin extends MooWP_App{
      * Initializes WordPress hooks
      */
     public function init_hooks() {
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
         if(isset($_GET['moosocialmenu']) && $_GET['moosocialmenu'] == 'load' ){
             $this->init_nav_items();
             wp_redirect( admin_url( 'nav-menus.php' ) );
         }
+        // phpcs:enable
 
         $this->initiated = true;
 
-        add_action('update_option_'.self::$option_name . '_setup_isset_moo', array($this, 'update_option_setup_isset_moo'), 10, 2);
+        add_action('update_option_'.self::$option_name . '_re_address_url', array($this, 'update_option_re_address_url'), 10, 3);
 
         /* nav menu left */
         add_action('admin_menu', array($this, 'setup_menu' ), 9);
+
+        add_action( 'admin_head', array($this, 'hide_menu' ));
 
         /* Settings mooWP */
         add_action('admin_init', array($this, 'register_settings'));
@@ -51,23 +55,51 @@ class MooWP_Admin extends MooWP_App{
             'dashicons-buddicons-forums',
             3
         );
+        add_submenu_page(
+            'moo-setting-page',
+            __( 'Reconnect mooSocial website', 'moowp' ),
+            __( 'Reconnect mooSocial website', 'moowp' ),
+            'manage_options',
+            'moo-reconnect',
+            array( $this, 'setting_admin_page_contents' )
+        );
+    }
+
+    public function hide_menu(){
+        //remove_submenu_page( 'moo-setting-page', 'moo-setup-new' );
+        remove_submenu_page( 'moo-setting-page', 'moo-reconnect' );
+        remove_submenu_page( 'moo-setting-page', 'moo-setting-page' );
     }
 
     /*
      * setup_menu()
      * */
     public function setting_admin_page_contents(){
+        $show_button_submit = true;
+
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
+        if ( isset( $_GET['page'] ) && $_GET['page'] == 'moo-reconnect' ) {
+            if(!empty($this->moosocial_re_address_url)){
+                update_option(self::$option_name . '_re_address_url', '');
+                wp_redirect( admin_url( 'admin.php?page=moo-setting-page' ) );
+            }
+            $show_button_submit = true;
+        }elseif (isset( $_GET['page'] ) && $_GET['page'] == 'moo-setting-page'){
+            if($this->moosocial_is_connecting == 0){
+                $show_button_submit = false;
+            }else{
+                if(!empty($this->moosocial_recovery_key)){
+                    $show_button_submit = false;
+                }
+            }
+        }
+        // phpcs:enable
+
         include MOOWP_PLUGIN_DIR . 'admin/setting-page-content.php';
     }
 
     public function register_settings() {
         $class_hide = 'hidden';
-        $class = (empty($this->moosocial_is_connecting)) ? $class_hide : '';
-        $isSetupIssetMoo = false;
-
-        if($this->moosocial_is_connecting == 0 && isset($_GET['setup_isset_moo']) && $_GET['setup_isset_moo'] == 1){
-            $isSetupIssetMoo = true;
-        }
 
         // Add a General section
         add_settings_section(
@@ -77,15 +109,42 @@ class MooWP_Admin extends MooWP_App{
             $this->plugin_name
         );
 
-        /* Field: Cookie Expire */
-        add_settings_field(
-            self::$option_name . '_cookie_expire',
-            __( 'Cookie Expire', 'moowp' ),
-            array( $this, self::$option_name . '_cookie_expire_field' ),
-            $this->plugin_name,
-            self::$option_name . '_general',
-            array( 'label_for' => self::$option_name . '_cookie_expire', 'class' => $class_hide )
-        );
+        $page_admin_moo = '';
+        $class_security_key = '';
+        $class_address_url = '';
+        $class_re_address_url = '';
+        $class_notification_position = '';
+        $class_chat_plugin_enable = '';
+
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
+        if ( isset( $_GET['page'] ) && $_GET['page'] == 'moo-setting-page' ) {
+            $page_admin_moo = 'moo-setting-page';
+            $class_address_url = ($this->moosocial_is_connecting == 0) ? 'hidden' : '';
+
+            $class_chat_plugin_enable = ($this->moosocial_is_connecting == 0) ? 'hidden' : '';
+
+            $show_in_header = apply_filters('theme_notification_show_in_header', false);
+            if($show_in_header){
+                $class_notification_position = 'hidden';
+            }else{
+                $class_notification_position = ($this->moosocial_is_connecting == 1) ? '' : 'hidden';
+            }
+
+            $class_re_address_url = 'hidden';
+
+            if(!empty($this->moosocial_recovery_key)){
+                $class_notification_position = 'hidden';
+                $class_chat_plugin_enable = 'hidden';
+            }
+        }elseif ( isset( $_GET['page'] ) && $_GET['page'] == 'moo-reconnect' ) {
+            $page_admin_moo = 'moo-reconnect';
+            $class_security_key = 'hidden';
+            $class_address_url = 'hidden';
+            $class_re_address_url = '';
+            $class_notification_position = 'hidden';
+            $class_chat_plugin_enable = 'hidden';
+        }
+        // phpcs:enable
 
         /* Field: Security key */
         add_settings_field(
@@ -94,17 +153,10 @@ class MooWP_Admin extends MooWP_App{
             array( $this, self::$option_name . '_security_key_field' ),
             $this->plugin_name,
             self::$option_name . '_general',
-            array( 'label_for' => self::$option_name . '_security_key', 'class' => '' )
+            array( 'label_for' => self::$option_name . '_security_key', 'class' => $class_security_key )
         );
 
         /* Field: Moosocial Address (URL) */
-        $class_address_url = '';
-        if($this->moosocial_is_connecting == 0){
-            if(!$isSetupIssetMoo){
-                $class_address_url = $class_hide;
-            }
-        }
-	
         add_settings_field(
             self::$option_name . '_address_url',
             __( 'Your mooSocial website URL', 'moowp' ),
@@ -114,14 +166,17 @@ class MooWP_Admin extends MooWP_App{
             array( 'label_for' => self::$option_name . '_address_url', 'class' => $class_address_url )
         );
 
-        /* Field: notification_position */
-        $show_in_header = apply_filters('theme_notification_show_in_header', false);
-        if($show_in_header){
-            $class_notification_position = $class_hide;
-        }else{
-            $class_notification_position = empty($this->moosocial_security_key) ? $class_hide : '';
-        }
+        /* Field: Moosocial Re Address (URL) */
+        add_settings_field(
+            self::$option_name . '_re_address_url',
+            __( 'Your mooSocial website URL RE', 'moowp' ),
+            array( $this, self::$option_name . '_re_address_url_field' ),
+            $this->plugin_name,
+            self::$option_name . '_general',
+            array( 'label_for' => self::$option_name . '_re_address_url', 'class' => $class_re_address_url )
+        );
 
+        /* Field: notification_position */
         add_settings_field(
             self::$option_name . '_notification_position',
             __( 'Social notification icons position on your wordpress site', 'moowp' ),
@@ -138,17 +193,19 @@ class MooWP_Admin extends MooWP_App{
             array( $this, self::$option_name . '_chat_plugin_enable_field' ),
             $this->plugin_name,
             self::$option_name . '_general',
-            array( 'label_for' => self::$option_name . '_chat_plugin_enable', 'class' => $class )
+            array( 'label_for' => self::$option_name . '_chat_plugin_enable', 'class' => $class_chat_plugin_enable )
         );
 
-        add_settings_field(
-            self::$option_name . '_moosocial_toolbar',
-            '',
-            array( $this, self::$option_name . '_moosocial_toolbar_field' ),
-            $this->plugin_name,
-            self::$option_name . '_general',
-            array( 'label_for' => self::$option_name . '_moosocial_toolbar', 'class' => '' )
-        );
+        if($page_admin_moo == 'moo-setting-page'){
+            add_settings_field(
+                self::$option_name . '_moosocial_toolbar',
+                '',
+                array( $this, self::$option_name . '_moosocial_toolbar_field' ),
+                $this->plugin_name,
+                self::$option_name . '_general',
+                array( 'label_for' => self::$option_name . '_moosocial_toolbar', 'class' => '' )
+            );
+        }
 
         //------------
         //------------
@@ -198,52 +255,28 @@ class MooWP_Admin extends MooWP_App{
             array( 'label_for' => self::$option_name . '_recovery_key', 'class' => $class_hide )
         );
 
-        if($isSetupIssetMoo){
-            /* Field: is setup with isset moosocial */
-            add_settings_field(
-                self::$option_name . '_setup_isset_moo',
-                __( 'setup isset moo', 'moowp' ),
-                array( $this, self::$option_name . '_setup_isset_moo_field' ),
-                $this->plugin_name,
-                self::$option_name . '_general',
-                array( 'label_for' => self::$option_name . '_setup_isset_moo', 'class' => $class_hide )
-            );
-        }
-        /*
+        /* Field: Cookie Expire */
         add_settings_field(
-            self::$option_name . '_radio_bool',
-            __( 'Boolean setting', 'moowp' ),
-            array( $this, self::$option_name . '_radio_bool_field' ),
+            self::$option_name . '_cookie_expire',
+            __( 'Cookie Expire', 'moowp' ),
+            array( $this, self::$option_name . '_cookie_expire_field' ),
             $this->plugin_name,
             self::$option_name . '_general',
-            array( 'label_for' => self::$option_name . '_radio_bool' )
+            array( 'label_for' => self::$option_name . '_cookie_expire', 'class' => $class_hide )
         );
-        add_settings_field(
-            self::$option_name . '_number',
-            __( 'Number setting', 'moowp' ),
-            array( $this, self::$option_name . '_number_cb' ),
-            $this->plugin_name,
-            self::$option_name . '_general',
-            array( 'label_for' => self::$option_name . '_number' )
-        );
-        */
         // Register the field
-        register_setting( $this->plugin_name, self::$option_name . '_address_url', 'text' );
-        register_setting( $this->plugin_name, self::$option_name . '_cookie_expire', 'integer' );
+        register_setting( $this->plugin_name, self::$option_name . '_re_address_url', 'text' );
         register_setting( $this->plugin_name, self::$option_name . '_notification_position', 'text' );
         register_setting( $this->plugin_name, self::$option_name . '_chat_plugin_enable', 'boolean' );
         register_setting( $this->plugin_name, self::$option_name . '_security_key', 'text' );
-        //register_setting( $this->plugin_name, self::$option_name . '_pages_menu', 'text' );
-        //register_setting( $this->plugin_name, self::$option_name . '_user_map_root', 'integer' );
-        //register_setting( $this->plugin_name, self::$option_name . '_error_flag', 'boolean' );
-        //register_setting( $this->plugin_name, self::$option_name . '_is_connecting', 'boolean' );
-        //register_setting( $this->plugin_name, self::$option_name . '_setup_isset_moo', 'text' );
-        //register_setting( $this->plugin_name, self::$option_name . '_radio_bool', '');
-        //register_setting( $this->plugin_name, self::$option_name . '_number', 'integer' );
+        register_setting( $this->plugin_name, self::$option_name . '_cookie_expire', 'integer' );
     }
 
-    public function update_option_setup_isset_moo( $old_value, $value ) {
-        update_option(self::$option_name . '_is_connecting', true);
+    public function update_option_re_address_url( $old_value, $value, $option ) {
+        if(!empty($value)){
+            update_option(self::$option_name . '_is_connecting', true);
+            update_option(self::$option_name . '_address_url', $value);
+        }
     }
 
     public function update_nav_menu($id, $data = NULL){
@@ -341,6 +374,10 @@ class MooWP_Admin extends MooWP_App{
         include MOOWP_PLUGIN_DIR . 'admin/form_fields/address_url_field.php';
     }
 
+    public function moowp_setting_re_address_url_field() {
+        include MOOWP_PLUGIN_DIR . 'admin/form_fields/re_address_url_field.php';
+    }
+
     public function moowp_setting_security_key_field() {
         include MOOWP_PLUGIN_DIR . 'admin/form_fields/security_key_field.php';
     }
@@ -377,14 +414,6 @@ class MooWP_Admin extends MooWP_App{
         include MOOWP_PLUGIN_DIR . 'admin/form_fields/is_connecting_field.php';
     }
 
-    public function moowp_setting_setup_isset_moo_field() {
-        $isSetupIssetMoo = false;
-        if(isset($_GET['setup_isset_moo']) && $_GET['setup_isset_moo'] == 1){
-            $isSetupIssetMoo = true;
-        }
-        include MOOWP_PLUGIN_DIR . 'admin/form_fields/setup_isset_moo_field.php';
-    }
-
     public function moowp_setting_moosocial_toolbar_field() {
         $current_user = wp_get_current_user();
         $isAdminWP = in_array('administrator', $current_user->roles, true);
@@ -396,11 +425,6 @@ class MooWP_Admin extends MooWP_App{
         $is_access_community_panel = false;
         $is_update_community_security_key = false;
         $is_confirm_update_community_security_key = false;
-        $is_setup_community_site = false;
-
-        if($this->moosocial_is_connecting == 0 && isset($_GET['setup_isset_moo']) && $_GET['setup_isset_moo'] == 1){
-            $is_setup_community_site = true;
-        }
 
         if($this->moosocial_is_connecting == 1){
             if(!empty($this->moosocial_address_url) && !empty($this->moosocial_security_key)){
@@ -468,20 +492,15 @@ class MooWP_Admin extends MooWP_App{
                 $error_flag = true;
                 $this->update_connecting_error();
                 $message_error = __('Please setup mooSocial Site', 'moowp');
-
-                $debug_code = 11;
             }else{
                 $error_flag = true;
                 $this->update_connecting_error();
                 $message_error = __('Please click "Generate Security Key" button and click "Save Changes" button.', 'moowp');
-
-                $debug_code = 12;
             }
         }
 
         include MOOWP_PLUGIN_DIR . 'admin/form_fields/moosocial_toolbar_field.php';
     }
-
     /**
      * Render the number input for this plugin
      *

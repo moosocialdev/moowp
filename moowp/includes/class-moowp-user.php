@@ -205,21 +205,24 @@ class MooWP_User extends MooWP_App {
         /**
          * Allow logout without confirmation
          */
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended
         if ($action == "log-out" && !isset($_GET['_wpnonce'])) {
             $redirect_to = isset($_REQUEST['redirect_to']) ? sanitize_url($_REQUEST['redirect_to']) : home_url();
             $location = str_replace('&amp;', '&', wp_logout_url($redirect_to));
             header("Location: $location");
             die;
         }
+        // phpcs:enable
     }
 
     /*
      * Click Button Log Out Everywhere
      * */
     public function ajax_log_out_everywhere(){
+        // phpcs:disable WordPress.Security.NonceVerification.Missing
         $action = (isset($_POST['action'])) ? sanitize_text_field($_POST['action']) : '';
         $user_id = (isset($_POST['user_id'])) ? absint($_POST['user_id']) : '';
-
+        // phpcs:enable
         if(!empty($action) && !empty($user_id) && $action == 'destroy-sessions' ){
             $url = $this->moosocial_address_url.'/'.MOOWP_CORE_API_NAMESPACE.'/add_destroy_sessions';
             $moo_user_key = $this->_generate_moo_key($user_id);

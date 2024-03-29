@@ -33,9 +33,6 @@ class MooWP_View extends MooWP_App {
         wp_register_style( 'moowp-style', MOOWP_PLUGIN_URL . 'public/assets/css/moosocial.css', array(), MOOWP_VERSION );
         wp_enqueue_style( 'moowp-style');
 
-        //$custom_css = ".navbar-nav ul li { list-style: none; }";
-        //wp_add_inline_style( 'wpdocs-style', $custom_css );
-
         wp_register_script( 'moosocial-script', MOOWP_PLUGIN_URL . 'public/assets/js/moosocial.js', array('jquery'), MOOWP_VERSION, false );
         wp_enqueue_script( 'moosocial-script' );
 

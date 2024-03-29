@@ -25,6 +25,8 @@ class MooWP_Activate extends MooWP_App {
         add_option( self::$option_name . '_is_connecting', false );
         add_option( self::$option_name . '_pages_menu', false );
         add_option( self::$option_name . '_recovery_key', '' );
+        add_option( self::$option_name . '_re_address_url', '' );
+        add_option( self::$option_name . '_address_url', '' );
 
         // Here the activation code ...
         $current_user = wp_get_current_user();

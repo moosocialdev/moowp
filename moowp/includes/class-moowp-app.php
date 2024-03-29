@@ -4,6 +4,7 @@ class MooWP_App {
     public static $option_name = 'moowp_setting';
     public $moosocial_is_connecting = 0;
     public $moosocial_address_url = '';
+    public $moosocial_re_address_url = '';
     public $moosocial_security_key = '';
     public $moosocial_notification_position = '';
     public $moosocial_chat_plugin_enable = 0;
@@ -32,6 +33,7 @@ class MooWP_App {
         $this->get_moo_error_flag();
         $this->get_moo_is_mapping();
         $this->get_moo_address_url();
+        $this->get_moo_re_address_url();
         $this->get_moo_security_key();
         $this->get_page_menu();
         $this->get_moo_notification_position();
@@ -70,13 +72,24 @@ class MooWP_App {
     }
     private function get_moo_address_url(){
         $moosocial_address_url = get_option(self::$option_name.'_address_url');
-        if($moosocial_address_url == false){
+        if(empty($moosocial_address_url)){
             $this->moosocial_address_url = '';
         }else{
             if(substr($moosocial_address_url, -1) == '/' ){
                 $moosocial_address_url = substr($moosocial_address_url, 0, -1);
             }
             $this->moosocial_address_url = $moosocial_address_url;
+        }
+    }
+    private function get_moo_re_address_url(){
+        $moosocial_re_address_url = get_option(self::$option_name.'_re_address_url');
+        if(empty($moosocial_re_address_url)){
+            $this->moosocial_re_address_url = '';
+        }else{
+            if(substr($moosocial_re_address_url, -1) == '/' ){
+                $moosocial_re_address_url = substr($moosocial_re_address_url, 0, -1);
+            }
+            $this->moosocial_re_address_url = $moosocial_re_address_url;
         }
     }
     private function get_moo_security_key(){
@@ -200,6 +213,17 @@ class MooWP_App {
             $this->moosocial_error_flag = 0;
             update_option(self::$option_name . '_error_flag', 0);
         }
+    }
+
+    public function get_user_by_meta_key($meta_value){
+        global $wpdb;
+
+        $userID = $wpdb->get_row($wpdb->prepare("SELECT user_id FROM ".$wpdb->usermeta." WHERE (meta_key = 'moo_user_key' AND meta_value = %s)", $meta_value)); // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+
+        if(!empty($userID)){
+            return get_user_by('id', (int)$userID->user_id);
+        }
+        return null;
     }
 }
 ?>

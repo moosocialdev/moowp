@@ -307,15 +307,9 @@ class MooWP_REST_API extends MooWP_App {
         );
 
         if($this->moosocial_security_key == $params['security_key']){
-            $users = get_users(
-                array(
-                    'meta_key' => 'moo_user_key',
-                    'meta_value' => $cookie_check['user_key']
-                )
-            );
+            $user_info = $this->get_user_by_meta_key($cookie_check['user_key']);
 
-            if(!empty($users)){
-                $user_info = $users[0];
+            if(!empty($user_info)){
 
                 $result['success'] = true;
                 $result['data'] = array(
