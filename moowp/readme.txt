@@ -16,7 +16,7 @@ Turn your Wordpress site to a powerful online community and see your business gr
 
 mooWP plugin acts as a bridge between mooSocial platform and Wordpress to turn your WordPress Site Into a Social Network. It allows you to turn your one-time visitors into loyal, long-term users by providing them a place to sign up, connect with each other, post messages, and more
 
-*Why choose mooSocial to add Social network for WordPress*
+**Why choose mooSocial to add Social network for WordPress**
 
 Why would you want to send your existing users on your Wordpress site to other social networks like fb, twitter ... .to increase the traffic for them instead of building a community for them to keep coming back to get quality traffic to your website.
 
@@ -24,26 +24,26 @@ mooSocial is a "white labeled" php social network software.It is light, fast, ea
 
 Zero headache to deal with 3rd party developers and compatible issues between developers because everything is from mooSocial Team. We have all of the plugins and apps that you need to have to build a successful community. The existing community plugins for Wordpress may be FREE and cheaper but most of them lack a lot of features/plugins for a social platform.  Whenever you need a new plugin or modify the existing social feature, you have to go with 3rd party solutions but normally they don’t talk to each other. This developer may break something else from other developers and vice versa…..
 
-Quick support: we provide the best customer support through many support channels like ticket, skype, community and online chat. For each client, we have dedicated technical support staff to handle any questions from them to help you create a successful community. Please read our review here
+Quick support: we provide the best customer support through many support channels like ticket, skype, community and online chat. For each client, we have dedicated technical support staff to handle any questions from them to help you create a successful community. Please read our review [here](https://www.capterra.com/p/139254/mooSocial/)
 
 == Use of a 3rd Party ==
 
-mooWP plugin is free but to run it requires you to purchase a license of the social network platform mooSocial . This plugin is only responsible for connecting WordPress site and mooSocial platform to synchronize users and notifications system.
+mooWP plugin is free but to run it requires you to purchase a license of the social network platform [mooSocial](https://moosocial.com/social-networking-plugin-for-wordpress/) . This plugin is only responsible for connecting WordPress site and mooSocial platform to synchronize users and notifications system.
 
-How it works: When you buy a license, we will provide free installation service and installation package. If you are technically savvy, you can install it yourself based on the instructions here
+How it works: When you buy a license, we will provide free installation service and installation package. If you are technically savvy, you can install it yourself based on the instructions [here](https://moosocial.com/knowledge-base/moowp-installation-and-configuration/)
 
 After installing and configuring correctly according to the instructions, mooSocial and WordPress site will be connected to each other. Sign up/in will be performed on the WordPress site and users will be automatically created on the community site. If there are notifications in the community, you will see them on your WordPress site through the notification system included in the mooWP plugin. We will help change the color of the community site to make it similar to your existing WordPress site to give your users the feeling that they are using a single platform.
 
 We provide 2 options for you to choose from when installing.
 
-* Use our cloud hosting and pay monthly/yearly. Can subscribe the cloud service here
-* Install directly on your server and pay ONE-TIME fee license. Can purchase the life-time license here
+* Use our cloud hosting and pay monthly/yearly. Can subscribe the cloud service [here](https://moosocial.com/moo-cloud/)
+* Install directly on your server and pay ONE-TIME fee license. Can purchase the life-time license [here](https://moosocial.com/knowledge-base/moowp-installation-and-configuration/)
 
-Term of services
-Privacy policy
-License agreement
-Company information (owner of the platform)
-Customer reviews about mooSocial
+[Term of services](https://moosocial.com/term-of-service)
+[Privacy policy](https://moosocial.com/privacy-policy)
+[License agreement](https://moosocial.com/license)
+[Company information (owner of the platform)](https://moosocial.com/company-info)
+[Customer reviews about mooSocial](https://www.capterra.com/p/139254/mooSocial/reviews/)
 
 
 == mooSocial main features==
@@ -75,10 +75,10 @@ Customer reviews about mooSocial
 * Bookmark system
 * Events
 * Poll
- * And many, many more...paid plugins and apps can be found at mooSocial.com
+ * And many, many more...paid plugins and apps can be found at [mooSocial.com](https://moosocial.com/)
 
-Read all about mooSocial features here:mooSocial.com
-Document about the mooSocial product can be found here. For mooWP, please read the section "mooWP - social networking plugin for WordPress" in the above knowledge-base link
+Read all about mooSocial features here:[mooSocial.com](https://moosocial.com/)
+Document about the mooSocial product can be found [here](https://moosocial.com/knowledge-base/). For mooWP, please read the section "mooWP - social networking plugin for WordPress" in the above knowledge-base link
 
 
 = Languages =
@@ -93,12 +93,12 @@ Currently mooSocial platform supported languages:
 * español (Spanish)
 * português (Portuguese)
 * …..
-* You can download all languages here languages
-You can translate it to your desired language thru language manager in admin panel of the platform.  Read here for more details and contact us if you have any problems
+* You can download all languages here [languages](https://moosocial.com/download-language-pack/)
+You can translate it to your desired language thru language manager in admin panel of the platform.  Read [here](https://moosocial.com/knowledge-base/how-to-translate-moosocial/) for more details and contact us if you have any problems
 
 == Try the demo ==
 
-Please visit our demo site, login as username: markp, password: 123456 to take a test drive. The demo includes all social features and plugins come with a basic package. You can purchase the premium plugins at mooSocial Plugins
+Please visit our [demo site](https://wordpress.moosocial.com/), login as username: markp, password: 123456 to take a test drive. The demo includes all social features and plugins come with a basic package. You can purchase the premium plugins at [mooSocial Plugins](https://moosocial.com/product-category/addons/plugins/)
 
 If the demo account can't login, please go to "Shop" section of the demo, add a product to cart and finish the purchase process. Don't forget to select "Create an account" at check out step for system to create an account at wordpress and community site for you to play around.
 
@@ -106,14 +106,14 @@ If the demo account can't login, please go to "Shop" section of the demo, add a 
 
 To integrate mooSocial to add the social network features on your Wordpress site, follow the below steps:
 
-* Purchase mooSocial license for Wordpress here or cloud service  here
-* If you purchase self-host license, You can download installation packages (3 packages) at client area. If you purchase the cloud service, system will auto install the mooSocial platform and give you the link + Admin credentials. Then you just follow the instructions here to configure.
+* Purchase mooSocial license for Wordpress [here](https://moosocial.com/social-networking-plugin-for-wordpress/) or cloud service  [here](https://moosocial.com/moo-cloud/)
+* If you purchase self-host license, You can download installation packages (3 packages) at [client area](https://moosocial.com/my-account/). If you purchase the cloud service, system will auto install the mooSocial platform and give you the link + Admin credentials. Then you just follow the instructions [here](https://moosocial.com/knowledge-base/category/social-networking-plugin-for-wordpress/) to configure.
 * Install mooWP plugin and mootheme package on your Wordpress site
 * Install mooSocial platform at your existing hosting or a separate hosting (recommended). If you subscribed to mooSocial cloud package, don’t need to take this step.
 
-Contact us for Free configuration service to make the two platforms seamlessly integrated. Or you can configure by yourself  by following the instructions here
+Contact us for Free configuration service to make the two platforms seamlessly integrated. Or you can configure by yourself  by following the instructions [here](https://moosocial.com/knowledge-base/category/social-networking-plugin-for-wordpress/)
 
-Your new *social network* will now be displayed on your site.
+Your new **social network** will now be displayed on your site.
 
 == mootheme ==
 
@@ -121,22 +121,22 @@ mootheme is designed/created by mooSocial team to allow you to turn the look and
 
 ==Purchase mooSocial License for WordPress ==
 
-Self-hosted license: See our Pricing Page.
-Cloud package: See our Subscription plan.
+Self-hosted license: See our [ Pricing Page](https://moosocial.com/social-networking-plugin-for-wordpress/).
+Cloud package: See our [Subscription plan](https://moosocial.com/moo-cloud/).
 
 == Installation ==
-See mooWP installation guide.
+See [mooWP installation guide](https://moosocial.com/knowledge-base/category/social-networking-plugin-for-wordpress/).
 
 
 == Frequently Asked Questions ==
 
 = How to try mooWP free of charge? =
 
-Please check the demo here or contact us to request a demo.
+Please check the demo [here](https://wordpress.moosocial.com/) or contact us to request a demo.
 
 = What is system requirements =
 
- Click here for the installation guide and requirement for hosting  here
+ Click here for the installation guide and requirement for hosting  [here](https://moosocial.com/knowledge-base/install-moosocial/)
 
 = How does the mobile app work? =
 
@@ -169,11 +169,11 @@ Cloud: it's subscription
 
 = How do I report a bug/problem and get technical support? =
 
-Can open support ticket here: Open ticket. For urgent issues, please add my skype id moosocial.support or whatsapp id +84913638785. Our time zone is GMT +7. Business hours are Mon - Fri (8am -> 17PM). During business hours, we reply to the requests in less than 24 hours,but it can take us up to 48 hours to get back to you during the weekend or holidays.
+Can open support ticket here: [Open ticket](https://clients.moosocial.com/tickets/create/). For urgent issues, please add my skype id moosocial.support or whatsapp id +84913638785. Our time zone is GMT +7. Business hours are Mon - Fri (8am -> 17PM). During business hours, we reply to the requests in less than 24 hours,but it can take us up to 48 hours to get back to you during the weekend or holidays.
 
  == Upgrade Notice ==
 
-We will send an announcement whenever a new version is released. You can download mooWP plugin here and download mooSocial for WordPress solution at the client area and follow the instructions here to upgrade. We do provide upgrading service also. Open ticket for further details
+We will send an announcement whenever a new version is released. You can download mooWP plugin here and download mooSocial for WordPress solution at the [client area](https://moosocial.com/my-account/) and follow the instructions [here](https://moosocial.com/knowledge-base/upgrading-moowp-solution/) to upgrade. We do provide upgrading service also. [Open ticket](https://clients.moosocial.com/tickets/create/) for further details
 
 == Screenshots ==
 1. Home page is woo-commerce plugin at our demo site. You can change the home page to any other page via the Menu manager section in the Admin panel of your WP site.
