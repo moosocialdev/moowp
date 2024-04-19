@@ -37,7 +37,7 @@ After installing and configuring correctly according to the instructions, mooSoc
 We provide 2 options for you to choose from when installing.
 
 * Use our cloud hosting and pay monthly/yearly. Can subscribe the cloud service [here](https://moosocial.com/moo-cloud/)
-* Install directly on your server and pay ONE-TIME fee license. Can purchase the life-time license [here](https://moosocial.com/knowledge-base/moowp-installation-and-configuration/)
+* Install directly on your server and pay ONE-TIME fee license. Can purchase the life-time license [here](https://moosocial.com/social-networking-plugin-for-wordpress/)
 
 [Term of services](https://moosocial.com/term-of-service)
 [Privacy policy](https://moosocial.com/privacy-policy)
@@ -75,7 +75,7 @@ We provide 2 options for you to choose from when installing.
 * Bookmark system
 * Events
 * Poll
- * And many, many more...paid plugins and apps can be found at [mooSocial.com](https://moosocial.com/)
+* And many, many more...paid plugins and apps can be found at [mooSocial.com](https://moosocial.com/)
 
 Read all about mooSocial features here:[mooSocial.com](https://moosocial.com/)
 Document about the mooSocial product can be found [here](https://moosocial.com/knowledge-base/). For mooWP, please read the section "mooWP - social networking plugin for WordPress" in the above knowledge-base link
