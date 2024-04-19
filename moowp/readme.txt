@@ -176,13 +176,15 @@ Can open support ticket here: Open ticket. For urgent issues, please add my skyp
 We will send an announcement whenever a new version is released. You can download mooWP plugin here and download mooSocial for WordPress solution at the client area and follow the instructions here to upgrade. We do provide upgrading service also. Open ticket for further details
 
 == Screenshots ==
-1.
-2.
-3.
-4.
-5.
-6.
-7.
+1. Home page is woo-commerce plugin at our demo site. You can change the home page to any other page via the Menu manager section in the Admin panel of your WP site.
+2. This is the social profile, the social profile information will be automatically taken from the WP site and allows users to edit to add more information. Fields in social profiles can be customized to add/delete through the custom fields system
+3. This is mooSocial's home feed page. You can set it as the home page of your WP site. This page displays all activities of members in the system. Members can filter to only see updates from friends/following.
+4. You can share a post, attach images, videos... to the post so your friends and followers can know the information and receive notifications. This is a very good channel for you to promote new products or notify about changes to products and services to followers within the system.
+5. After successfully installing and connecting mooSocial and WP site, you will see all WP site menus in the community manager menu and vice versa. Synchronizing menus between the two sides makes it easier for you to create a consistent menu system for WP site and community site.
+6. After successfully installing and connecting mooSocial and WP site, you will see all WP site menus in the community manager menu and vice versa. Synchronizing menus between the two sides makes it easier for you to create a consistent menu system for WP site and community site.
+7. You need to install mooWP plugin and your WP site and configure the information here to connect WP site and Community site. You need to get the Key information here to input when installing the Community site.
+8. After connecting successfully, you can access the community's Admin panel by clicking "Access to Community Admin panel"
+9. Member can edit social profile here by click on "Edit profile" at social profile page. At this page, member can change profile information, can configure the notification setting and email notification settings also.
 
 == Changelog ==
 
